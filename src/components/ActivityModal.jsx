@@ -34,8 +34,8 @@ export function ActivityModal({ onClose, onAdd, isDarkMode, profile, activities 
   const [type, setType] = useState('routine')
   const [title, setTitle] = useState('')
   const [duration, setDuration] = useState(15)
-  const [period, setPeriod] = useState('morning')
-  const [selectedDays, setSelectedDays] = useState([1, 2, 3, 4, 5])
+  const [period, setPeriod] = useState('evening')
+  const [selectedDays, setSelectedDays] = useState([])
   const [weeks, setWeeks] = useState(4)
   const [startDate, setStartDate] = useState(formatDate(new Date()))
   const [error, setError] = useState('')
@@ -261,7 +261,7 @@ export function ActivityModal({ onClose, onAdd, isDarkMode, profile, activities 
               </Field>
             )}
 
-            {type !== 'routine' && (
+            {type === 'habit' && (
               <Field label="Başlangıç Tarihi">
                 <input
                   type="date"

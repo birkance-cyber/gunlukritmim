@@ -463,7 +463,9 @@ function App() {
   const addActivity = async (data) => {
     if (!user) return
 
-    const startDate = formatDate(data.type === 'routine' ? new Date() : data.startDate || new Date())
+    const startDate = formatDate(
+      data.type === 'habit' ? data.startDate || new Date() : new Date(),
+    )
     const endDate =
       data.type === 'routine'
         ? formatDate(addDays(startDate, 70))
@@ -1123,6 +1125,17 @@ function ActivityCard({ activity, onToggle, isDone, dateStr, onDelete, isDarkMod
   const completionCount = (activity.completions || []).length
   const target = getActivityTarget(activity)
   const isMissed = !isDone && dateStr < formatDate(new Date())
+  const typeStyles = activity.type === 'challenge'
+    ? isDarkMode
+      ? 'border-amber-700/60 bg-amber-950/10 text-amber-100'
+      : 'border-amber-200 bg-amber-50/70 text-amber-900'
+    : activity.type === 'habit'
+      ? isDarkMode
+        ? 'border-sky-700/50 bg-sky-950/10 text-sky-100'
+        : 'border-sky-200 bg-sky-50/70 text-sky-900'
+      : isDarkMode
+        ? 'border-rose-700/50 bg-rose-950/10 text-rose-100'
+        : 'border-rose-200 bg-rose-50/70 text-rose-900'
   const progressLabel =
     activity.type === 'habit'
       ? `${completionCount} / 21`
@@ -1150,9 +1163,7 @@ function ActivityCard({ activity, onToggle, isDone, dateStr, onDelete, isDarkMod
               ? isDarkMode
                 ? 'border-amber-900/40 bg-amber-950/20 text-amber-100'
                 : 'border-amber-200 bg-amber-50 text-amber-900'
-            : isDarkMode
-              ? 'border-stone-700 bg-stone-800 text-stone-200'
-              : 'border-stone-100 bg-white text-stone-800'
+            : typeStyles
         }`}
       >
         <div className="flex items-center gap-4">
