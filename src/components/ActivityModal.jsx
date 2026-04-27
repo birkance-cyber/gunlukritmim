@@ -284,7 +284,7 @@ export function ActivityModal({ onClose, onAdd, isDarkMode, profile, activities 
                 setError(err.message || 'Aktivite kaydı sırasında bir hata oluştu.')
               }
             }}
-            disabled={!title}
+          disabled={!title || !selectedDate}
             className="w-full rounded-[1.4rem] bg-rose-600 py-4 font-bold text-white disabled:opacity-50 md:rounded-[2rem] md:py-5"
           >
             Sisteme Kaydet
